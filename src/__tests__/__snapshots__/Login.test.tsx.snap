@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Login Component render correctly 1`] = `
+<styled.div>
+  <form>
+    <input
+      id="email"
+      placeholder="Digite seu e-mail"
+      type="email"
+    />
+    <input
+      id="password"
+      placeholder="Digite sua senha"
+      type="password"
+    />
+    <button
+      type="submit"
+    >
+      Login
+    </button>
+  </form>
+</styled.div>
+`;
