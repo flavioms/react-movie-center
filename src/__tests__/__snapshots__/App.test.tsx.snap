@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Testing App Component render correctly 1`] = `
-<div>
-  <h2>
-    Hello World
-  </h2>
-</div>
+<AuthProvider>
+  <Routes />
+</AuthProvider>
 `;

@@ -1,13 +1,13 @@
 import app from 'firebase/app';
 
 const config = {
-  apiKey: 'AIzaSyAfZp2pxdLhaxePeozE9R6WMWJFJfnLjn8',
-  authDomain: 'moviecenter-416af.firebaseapp.com',
-  databaseURL: 'https://moviecenter-416af.firebaseio.com',
-  projectId: 'moviecenter-416af',
-  storageBucket: 'moviecenter-416af.appspot.com',
-  messagingSenderId: '862011326823',
-  appId: '1:862011326823:web:9e93170394de2779ccafc2',
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  databaseURL: process.env.REACT_APP_DATABASEURL,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_APPID,
 };
 
 const firebase = app.initializeApp(config);

@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Testing Login Component render correctly 1`] = `
+exports[`Testing SignIn Component render correctly 1`] = `
 <styled.div>
-  <form>
+  <form
+    onSubmit={[Function]}
+  >
     <input
       id="email"
       placeholder="Digite seu e-mail"

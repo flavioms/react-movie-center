@@ -1,18 +1,18 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import AuthContext from '../../contexts/auth';
 import { Container } from './styles';
 
 const SignIn: React.FC = () => {
-  const { signed, signInAuth } = useContext(AuthContext);
+  const { signInAuth } = useContext(AuthContext);
 
-  useEffect(() => {
+  const handleSignIn = (e: React.FormEvent): void => {
+    e.preventDefault();
     signInAuth();
-  }, [signInAuth]);
+  };
 
   return (
     <Container>
-      <form>
-        {console.log(signed)}
+      <form onSubmit={handleSignIn}>
         <input type="email" id="email" placeholder="Digite seu e-mail" />
         <input type="password" id="password" placeholder="Digite sua senha" />
         <button type="submit">Login</button>
