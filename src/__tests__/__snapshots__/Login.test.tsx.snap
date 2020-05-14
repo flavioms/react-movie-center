@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing SignIn Component render correctly 1`] = `
+<styled.div>
+  <button
+    id="facebook"
+    type="button"
+  >
+    Facebook
+  </button>
+  <button
+    id="google"
+    type="button"
+  >
+    Google
+  </button>
+</styled.div>
+`;
