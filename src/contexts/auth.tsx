@@ -1,10 +1,11 @@
 import React, { createContext, useState, useEffect } from 'react';
-import signIn from '../services/auth';
+import { signInGoogle, signInFacebook } from '../services/auth';
 
 interface AuthContextData {
   signed: boolean;
   user: object | null;
-  signInAuth(): Promise<void>;
+  signInAuthGoogle(): Promise<void>;
+  signInAuthFacebook(): Promise<void>;
   signOutAuth(): void;
 }
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -23,8 +24,15 @@ export const AuthProvider: React.FC = ({ children }) => {
     loadStoragedData();
   }, []);
 
-  async function signInAuth(): Promise<void> {
-    const response = await signIn();
+  async function signInAuthGoogle(): Promise<void> {
+    const response = await signInGoogle();
+
+    setUser(response);
+    localStorage.setItem('@MovieCenter:user', JSON.stringify(response));
+  }
+
+  async function signInAuthFacebook(): Promise<void> {
+    const response = await signInFacebook();
 
     setUser(response);
     localStorage.setItem('@MovieCenter:user', JSON.stringify(response));
@@ -37,7 +45,13 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, user, signInAuth, signOutAuth }}
+      value={{
+        signed: !!user,
+        user,
+        signInAuthGoogle,
+        signInAuthFacebook,
+        signOutAuth,
+      }}
     >
       {children}
     </AuthContext.Provider>

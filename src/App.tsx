@@ -2,11 +2,12 @@ import React from 'react';
 import { AuthProvider } from './contexts/auth';
 
 import Routes from './routes';
-// import { Container } from './styles';
+import GlobalStyle from './styles/global';
 
 const App: React.FC = () => {
   return (
     <AuthProvider>
+      <GlobalStyle />
       <Routes />
     </AuthProvider>
   );

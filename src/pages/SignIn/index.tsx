@@ -1,22 +1,35 @@
 import React, { useContext } from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import { FaFacebookSquare } from 'react-icons/fa';
 import AuthContext from '../../contexts/auth';
-import { Container } from './styles';
+import { Container, Logo, SocialLogin, ButtonLogin } from './styles';
 
 const SignIn: React.FC = () => {
-  const { signInAuth } = useContext(AuthContext);
-
-  const handleSignIn = (e: React.FormEvent): void => {
-    e.preventDefault();
-    signInAuth();
-  };
+  const { signInAuthGoogle, signInAuthFacebook } = useContext(AuthContext);
 
   return (
     <Container>
-      <form onSubmit={handleSignIn}>
-        <input type="email" id="email" placeholder="Digite seu e-mail" />
-        <input type="password" id="password" placeholder="Digite sua senha" />
-        <button type="submit">Login</button>
-      </form>
+      <Logo />
+      <SocialLogin>
+        <ButtonLogin
+          social="facebook"
+          type="button"
+          onClick={signInAuthFacebook}
+          id="facebook"
+        >
+          <FaFacebookSquare />
+          Sign in with Facebook
+        </ButtonLogin>
+        <ButtonLogin
+          social="google"
+          type="button"
+          onClick={signInAuthGoogle}
+          id="google"
+        >
+          <FcGoogle />
+          Sign in with Google
+        </ButtonLogin>
+      </SocialLogin>
     </Container>
   );
 };
