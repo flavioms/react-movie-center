@@ -1,9 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { UserInfo } from 'firebase';
 import { signInGoogle, signInFacebook } from '../services/auth';
 
 interface AuthContextData {
   signed: boolean;
-  user: object | null;
+  user: UserInfo | null;
   signInAuthGoogle(): Promise<void>;
   signInAuthFacebook(): Promise<void>;
   signOutAuth(): void;
@@ -11,7 +12,7 @@ interface AuthContextData {
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<object | null>(null);
+  const [user, setUser] = useState<UserInfo | null>(null);
 
   useEffect(() => {
     async function loadStoragedData(): Promise<void> {

@@ -1,6 +1,4 @@
 import styled, { css } from 'styled-components';
-import { HtmlHTMLAttributes } from 'react';
-import { HTMLAttributes } from 'enzyme';
 import LogoPNG from '../../assets/logo.png';
 
 export const Container = styled.div`
