@@ -1,30 +1,21 @@
 import axios from '../config/axios';
 
-interface MovieBasic {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  backdrop_path: string | null;
-  genre_ids: number[];
-  overview: string;
-}
-
 interface Gender {
   id: number;
   name: string;
 }
 
-export const getPopularMovies = async (): Promise<MovieBasic[]> => {
+export const getMovies = async (type: string, page?: number): Promise<any> => {
   return axios
-    .get('/movie/popular', {
+    .get(`/movie/${type}`, {
       params: {
         // eslint-disable-next-line @typescript-eslint/camelcase
-        api_key: '9c5084be8cde346ac6691f09c3d6fa84',
+        api_key: process.env.REACT_APP_MOVIEDB_KEY,
         language: 'pt-BR',
-        page: 1,
+        page: page || 1,
       },
     })
-    .then(result => result.data.results);
+    .then(result => result.data);
 };
 
 export const getGender = async (): Promise<Gender[]> => {

@@ -7,7 +7,7 @@ import MovieContext from '../../contexts/movie';
 import { Container, Banner, BannerInfo, Slide } from './styles';
 
 const SlideShow: React.FC = () => {
-  const { bannerMovies, getMoviesToBanner } = useContext(MovieContext);
+  const { bannerMovies, getMoviesToUpcoming } = useContext(MovieContext);
   const settings: Settings = {
     className: 'center',
     centerMode: true,
@@ -21,7 +21,7 @@ const SlideShow: React.FC = () => {
   };
 
   useEffect(() => {
-    getMoviesToBanner();
+    getMoviesToUpcoming();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -29,7 +29,7 @@ const SlideShow: React.FC = () => {
     <Container>
       <Slider {...settings}>
         {bannerMovies &&
-          bannerMovies.map(movie => (
+          bannerMovies?.results.map(movie => (
             <Slide key={movie.id}>
               <Banner
                 src={

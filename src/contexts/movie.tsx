@@ -1,6 +1,8 @@
-import React, { createContext, useState, useEffect } from 'react';
+/* eslint-disable no-plusplus */
+/* eslint-disable @typescript-eslint/camelcase */
+import React, { createContext, useState } from 'react';
 // import { UserInfo } from 'firebase';
-import { getPopularMovies, getGender } from '../services/movie';
+import { getMovies, getGender } from '../services/movie';
 
 interface MovieBasic {
   id: number;
@@ -12,20 +14,37 @@ interface MovieBasic {
   overview: string;
 }
 
-interface MovieContextData {
-  bannerMovies: MovieBasic[] | null;
-  getMoviesToBanner(): Promise<void>;
+interface ReturnAPIProps {
+  page: number;
+  results: MovieBasic[];
+  total_pages: number;
 }
+
+interface MovieContextData {
+  bannerMovies: ReturnAPIProps | null;
+  popularMovies: ReturnAPIProps | null;
+  topRatedMovies: ReturnAPIProps | null;
+  getMoviesToUpcoming(): Promise<void>;
+  getMoviesToPopular(): Promise<void>;
+  getMoviesToTopRated(): Promise<void>;
+}
+
 const MovieContext = createContext<MovieContextData>({} as MovieContextData);
 
 export const MovieProvider: React.FC = ({ children }) => {
-  const [movies, setMovies] = useState<MovieBasic[] | null>(null);
+  const [bannerMovies, setBannerMovies] = useState<ReturnAPIProps | null>(null);
+  const [popularMovies, setPopularMovies] = useState<ReturnAPIProps | null>(
+    null,
+  );
+  const [topRatedMovies, setTopRatedMovies] = useState<ReturnAPIProps | null>(
+    null,
+  );
 
-  async function getMoviesToBanner(): Promise<void> {
+  async function resolveGenderName(
+    movies: MovieBasic[],
+  ): Promise<MovieBasic[]> {
     const genders = await getGender();
-    const data: MovieBasic[] | null = await getPopularMovies();
-
-    const response = data.map(movie => {
+    const response = movies.map(movie => {
       return Object.assign(movie, {
         genreNames: movie.genre_ids.map(key => {
           return genders
@@ -35,14 +54,60 @@ export const MovieProvider: React.FC = ({ children }) => {
       });
     });
 
-    setMovies(response);
+    return response;
+  }
+
+  async function getMoviesToPopular(): Promise<void> {
+    const { page, results, total_pages }: ReturnAPIProps = await getMovies(
+      'popular',
+    );
+
+    const response = await resolveGenderName(results);
+
+    setPopularMovies({
+      page,
+      total_pages,
+      results: response,
+    });
+  }
+
+  async function getMoviesToUpcoming(): Promise<void> {
+    const { page, results, total_pages }: ReturnAPIProps = await getMovies(
+      'upcoming',
+    );
+
+    const response = await resolveGenderName(results);
+
+    setBannerMovies({
+      page,
+      total_pages,
+      results: response,
+    });
+  }
+
+  async function getMoviesToTopRated(): Promise<void> {
+    const { page, results, total_pages }: ReturnAPIProps = await getMovies(
+      'top_rated',
+    );
+
+    const response = await resolveGenderName(results);
+
+    setTopRatedMovies({
+      page,
+      total_pages,
+      results: response,
+    });
   }
 
   return (
     <MovieContext.Provider
       value={{
-        bannerMovies: movies,
-        getMoviesToBanner,
+        bannerMovies,
+        popularMovies,
+        topRatedMovies,
+        getMoviesToUpcoming,
+        getMoviesToPopular,
+        getMoviesToTopRated,
       }}
     >
       {children}
