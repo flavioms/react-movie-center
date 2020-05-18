@@ -10,10 +10,14 @@ export const Container = styled.div`
   }
 `;
 
-export const Movie = styled.a`
+export const MovieItem = styled.div`
+  padding: 1em;
+  width: 100%;
+  max-width: 250px;
+
   & > img {
-    width: 250px;
-    height: 375px;
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
     border: solid 1px rgba(0, 0, 0, 0);
   }

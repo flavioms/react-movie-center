@@ -2,8 +2,9 @@ import React from 'react';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Movie from '../../store/ducks/Movie';
 
-import { Container, Movie } from './styles';
+import { Container, MovieItem } from './styles';
 
 const settings: Settings = {
   dots: true,
@@ -15,38 +16,25 @@ const settings: Settings = {
   lazyLoad: 'ondemand',
 };
 
-interface MovieBasic {
-  id: number;
-  title: string;
-  poster_path: string | null;
-  backdrop_path: string | null;
-  genre_ids: number[];
-  genreNames?: string[];
-  overview: string;
-}
-
-interface MovieListProps {
-  movies: MovieBasic[] | null | undefined;
+interface OwnProps {
+  movies: Movie[];
   title: string;
   onEdge(): void;
 }
 
-const MovieList: React.FC<MovieListProps> = ({ movies, title, onEdge }) => {
+const MovieList: React.FC<OwnProps> = ({ movies, title, onEdge }) => {
   return (
     <Container>
       <h1>{title}</h1>
       <Slider {...settings} onEdge={onEdge}>
-        {movies &&
-          movies.map(movie => (
-            <Movie href="$" key={movie.id}>
-              <img
-                src={
-                  `https://image.tmdb.org/t/p/w500/${movie.poster_path}` || ''
-                }
-                alt={movie.title}
-              />
-            </Movie>
-          ))}
+        {movies.map(movie => (
+          <MovieItem key={movie.id}>
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}` || ''}
+              alt={movie.title}
+            />
+          </MovieItem>
+        ))}
       </Slider>
     </Container>
   );

@@ -1,13 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import Slider, { Settings } from 'react-slick';
 import { FaPlayCircle } from 'react-icons/fa';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import MovieContext from '../../contexts/movie';
+import Movie from '../../store/ducks/Movie';
 import { Container, Banner, BannerInfo, Slide } from './styles';
 
-const SlideShow: React.FC = () => {
-  const { bannerMovies, getMoviesToUpcoming } = useContext(MovieContext);
+interface OwnProps {
+  movies: Movie[];
+}
+const SlideShow: React.FC<OwnProps> = ({ movies }) => {
   const settings: Settings = {
     className: 'center',
     centerMode: true,
@@ -20,22 +22,14 @@ const SlideShow: React.FC = () => {
     autoplaySpeed: 60 * 100,
   };
 
-  useEffect(() => {
-    getMoviesToUpcoming();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <Container>
       <Slider {...settings}>
-        {bannerMovies &&
-          bannerMovies?.results.map(movie => (
+        {movies &&
+          movies.map(movie => (
             <Slide key={movie.id}>
               <Banner
-                src={
-                  `https://image.tmdb.org/t/p/original/${movie.backdrop_path}` ||
-                  ''
-                }
+                src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
               >
                 <BannerInfo>
                   <h3>Destaques</h3>

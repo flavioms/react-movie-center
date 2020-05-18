@@ -1,6 +1,7 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+import store from './store';
 import { AuthProvider } from './contexts/auth';
-import { MovieProvider } from './contexts/movie';
 
 import Routes from './routes';
 import GlobalStyle from './styles/global';
@@ -8,10 +9,10 @@ import GlobalStyle from './styles/global';
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <MovieProvider>
+      <Provider store={store}>
         <GlobalStyle />
         <Routes />
-      </MovieProvider>
+      </Provider>
     </AuthProvider>
   );
 };
