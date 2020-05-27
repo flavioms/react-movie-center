@@ -1,28 +1,42 @@
 import React, { useContext } from 'react';
-import { Route, RouteProps, Redirect } from 'react-router-dom';
+import {
+  Route as ReactDOMRoute,
+  RouteProps as ReactDOMRouteProps,
+  Redirect,
+} from 'react-router-dom';
 import AuthContext from '../contexts/auth';
 
 // import { Container } from './styles';
 
-interface CustomRouteProps extends RouteProps {
+interface RouteProps extends ReactDOMRouteProps {
   isPrivate?: boolean;
+  component: React.ComponentType;
 }
 
-const RouteWrapper: React.FC<CustomRouteProps> = ({
+const Route: React.FC<RouteProps> = ({
   isPrivate = false,
+  component: Component,
   ...rest
 }) => {
-  const { signed } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  if (!signed) {
-    return <Redirect to="/signin" />;
-  }
-
-  if (signed && !isPrivate) {
-    return <Redirect to="/" />;
-  }
-
-  return <Route {...rest} />;
+  return (
+    <ReactDOMRoute
+      {...rest}
+      render={({ location }) => {
+        return isPrivate === !!user ? (
+          <Component />
+        ) : (
+          <Redirect
+            to={{
+              pathname: isPrivate ? '/signin' : '/',
+              state: { from: location },
+            }}
+          />
+        );
+      }}
+    />
+  );
 };
 
-export default RouteWrapper;
+export default Route;

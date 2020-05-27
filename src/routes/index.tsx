@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-// import Router from './Router';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import Route from './Router';
 import SignIn from '../pages/SignIn';
 import Home from '../pages/Home';
 import Movie from '../pages/Movie';
@@ -10,8 +10,8 @@ const Routes: React.FC = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/movie/:id" component={Movie} />
+        <Route path="/" exact component={Home} isPrivate />
+        <Route path="/movie/:id" component={Movie} isPrivate />
         <Route path="/signin" component={SignIn} />
       </Switch>
     </BrowserRouter>

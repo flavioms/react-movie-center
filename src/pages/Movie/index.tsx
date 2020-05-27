@@ -1,14 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { movieDetailGet, movieCreditsGet } from '../../services/movieDB';
 import ElencoList from '../../components/ElencoList';
 import Header from '../../components/Header';
 import { Container, Backdrop, Overview } from './styles';
-
-type RouteInfo = { id: string };
-
-type ComponentProps = RouteComponentProps<RouteInfo>;
 
 interface Genre {
   id: number;
@@ -31,11 +27,12 @@ interface CastProps {
   profile_path: string;
 }
 
-const Movie: React.FC<ComponentProps> = ({ match }) => {
+const Movie: React.FC = () => {
+  const { id } = useParams();
   const [movie, setMovie] = useState<MovieFull | null>(null);
   const [casts, setCasts] = useState<CastProps[] | null>(null);
-  const movieDetail = movieDetailGet(parseInt(match.params.id, 10));
-  const movieCasts = movieCreditsGet(parseInt(match.params.id, 10));
+  const movieDetail = movieDetailGet(parseInt(id, 10));
+  const movieCasts = movieCreditsGet(parseInt(id, 10));
   useEffect(() => {
     Promise.all([movieDetail, movieCasts]).then(values => {
       setMovie(values[0]);
