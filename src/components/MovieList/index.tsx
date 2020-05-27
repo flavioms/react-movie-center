@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Movie from '../../store/ducks/Movie';
 
 import { Container, MovieItem } from './styles';
 
@@ -16,8 +15,17 @@ const settings: Settings = {
   lazyLoad: 'ondemand',
 };
 
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  genre_ids: number[];
+  genreNames?: string[];
+  overview: string;
+}
 interface OwnProps {
-  movies: Movie[];
+  movies: Movie[] | undefined;
   title: string;
   onEdge(): void;
 }
@@ -25,17 +33,22 @@ interface OwnProps {
 const MovieList: React.FC<OwnProps> = ({ movies, title, onEdge }) => {
   return (
     <Container>
-      <h1>{title}</h1>
-      <Slider {...settings} onEdge={onEdge}>
-        {movies.map(movie => (
-          <MovieItem key={movie.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}` || ''}
-              alt={movie.title}
-            />
-          </MovieItem>
-        ))}
-      </Slider>
+      <Suspense fallback={<h1>loading...</h1>}>
+        <h1>{title}</h1>
+        <Slider {...settings} onEdge={onEdge}>
+          {movies &&
+            movies.map(movie => (
+              <MovieItem to={`/movie/${movie.id}`} key={movie.id}>
+                <img
+                  src={
+                    `https://image.tmdb.org/t/p/w500/${movie.poster_path}` || ''
+                  }
+                  alt={movie.title}
+                />
+              </MovieItem>
+            ))}
+        </Slider>
+      </Suspense>
     </Container>
   );
 };

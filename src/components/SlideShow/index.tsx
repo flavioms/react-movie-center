@@ -3,11 +3,20 @@ import Slider, { Settings } from 'react-slick';
 import { FaPlayCircle } from 'react-icons/fa';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Movie from '../../store/ducks/Movie';
 import { Container, Banner, BannerInfo, Slide } from './styles';
 
+interface Movie {
+  id: number;
+  title: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  genre_ids: number[];
+  genreNames?: string[];
+  overview: string;
+}
+
 interface OwnProps {
-  movies: Movie[];
+  movies: Movie[] | undefined;
 }
 const SlideShow: React.FC<OwnProps> = ({ movies }) => {
   const settings: Settings = {
