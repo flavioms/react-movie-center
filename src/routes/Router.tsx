@@ -14,7 +14,7 @@ const RouteWrapper: React.FC<CustomRouteProps> = ({
 }) => {
   const { signed } = useContext(AuthContext);
 
-  if (!signed && isPrivate) {
+  if (!signed) {
     return <Redirect to="/signin" />;
   }
 
