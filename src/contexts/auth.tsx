@@ -27,7 +27,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   async function signInAuthGoogle(): Promise<void> {
     const response = await signInGoogle();
-
+    console.log(response);
     setUser(response);
     localStorage.setItem('@MovieCenter:user', JSON.stringify(response));
   }
