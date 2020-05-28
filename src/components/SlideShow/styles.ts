@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -42,9 +43,10 @@ export const Banner = styled.figure<BannerProps>`
   }
 `;
 
-export const BannerInfo = styled.div`
+export const BannerInfo = styled(Link)`
   margin-left: 5%;
   z-index: 2;
+  text-decoration: none;
 
   h3,
   a {

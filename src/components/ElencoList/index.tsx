@@ -2,6 +2,7 @@ import React from 'react';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Logo from '../../assets/logo.png';
 
 import { Container, ElencoItem } from './styles';
 
@@ -37,7 +38,9 @@ const ElencoList: React.FC<OwnProps> = ({ casts, title, onEdge }) => {
             <ElencoItem key={cast.id}>
               <img
                 src={
-                  `https://image.tmdb.org/t/p/w500/${cast.profile_path}` || ''
+                  cast.profile_path
+                    ? `https://image.tmdb.org/t/p/w500/${cast.profile_path}`
+                    : Logo
                 }
                 alt={cast.name}
               />

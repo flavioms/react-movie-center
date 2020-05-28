@@ -76,10 +76,49 @@ export const Overview = styled.div`
       line-height: 1.32;
       letter-spacing: 0.1px;
     }
+    ul {
+      width: 100%;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+
+      li {
+        list-style: none;
+        margin-left: 0.5em;
+      }
+    }
   }
 
   & > img {
     max-height: 450px;
     margin-right: 3em;
+  }
+`;
+
+export const CrewGroup = styled.div`
+  margin-top: 3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+
+export const CrewDetail = styled.div`
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: 900;
+  font-family: 'Source Sans Pro', sans-serif;
+`;
+
+export const TrailerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 2em 0 4em;
+
+  h1 {
+    color: #fff;
+    margin: 2em 0;
   }
 `;

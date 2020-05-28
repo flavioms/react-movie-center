@@ -5,7 +5,14 @@ import {
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
 } from 'react-icons/md';
-import { Container, Logo, InputFind, Profile, Menu } from './styles';
+import {
+  Container,
+  Logo,
+  InputFind,
+  SearchButton,
+  Profile,
+  Menu,
+} from './styles';
 import AuthContext from '../../contexts/auth';
 
 const Header: React.FC = () => {
@@ -14,11 +21,15 @@ const Header: React.FC = () => {
 
   return (
     <Container>
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
 
       <InputFind>
         <input type="text" placeholder="Encontre seus filmes favoritos…" />
-        <MdSearch size={30} />
+        <SearchButton>
+          <MdSearch size={30} />
+        </SearchButton>
       </InputFind>
 
       <Profile>

@@ -127,3 +127,9 @@ export const Menu = styled.button<MenuProps>`
     }
   }
 `;
+
+export const SearchButton = styled.button`
+  background: none;
+  border: none;
+  color: #fff;
+`;

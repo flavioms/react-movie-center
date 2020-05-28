@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import Slider, { Settings } from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Logo from '../../assets/logo.png';
 
 import { Container, MovieItem } from './styles';
 
@@ -41,7 +42,9 @@ const MovieList: React.FC<OwnProps> = ({ movies, title, onEdge }) => {
               <MovieItem to={`/movie/${movie.id}`} key={movie.id}>
                 <img
                   src={
-                    `https://image.tmdb.org/t/p/w500/${movie.poster_path}` || ''
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+                      : Logo
                   }
                   alt={movie.title}
                 />

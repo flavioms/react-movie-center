@@ -40,7 +40,7 @@ const SlideShow: React.FC<OwnProps> = ({ movies }) => {
               <Banner
                 src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
               >
-                <BannerInfo>
+                <BannerInfo to={`/movie/${movie.id}`}>
                   <h3>Destaques</h3>
                   <h1>{movie.title}</h1>
                   <h3>{`${movie.genreNames}`}</h3>

@@ -23,6 +23,7 @@ interface MovieFull {
   overview: string;
   release_date: string;
   popularity: number;
+  runtime: number | null;
 }
 export interface MovieResponseProps {
   page: number;
@@ -31,11 +32,32 @@ export interface MovieResponseProps {
   total_pages: number;
 }
 
-interface CreditsProps {
+interface CastProps {
   id: number;
   name: string;
   character: string;
   profile_path: string;
+}
+
+interface CrewProps {
+  id: number;
+  name: string;
+  department: string;
+  job: string;
+  profile_path: string;
+}
+
+interface CreditsProps {
+  id: number;
+  cast: CastProps[];
+  crew: CrewProps[];
+}
+
+interface MovieVideoProps {
+  id: string;
+  key: string;
+  name: string;
+  size: number;
 }
 
 const paramsRequest = {
@@ -109,11 +131,31 @@ export const movieDetailGet = async (id: number): Promise<MovieFull> => {
   return data;
 };
 
-export const movieCreditsGet = async (id: number): Promise<CreditsProps[]> => {
+export const movieCreditsGet = async (id: number): Promise<CreditsProps> => {
   const data = await axios
     .get(`/movie/${id}/credits`, {
       params: paramsRequest,
     })
-    .then(result => result.data.cast);
+    .then(result => result.data);
+  return data;
+};
+
+export const similarMoviesGet = async (
+  id: number,
+): Promise<MovieResponseProps> => {
+  const data = await axios
+    .get(`/movie/${id}/similar`, {
+      params: paramsRequest,
+    })
+    .then(result => result.data);
+  return data;
+};
+
+export const movieVideoGet = async (id: number): Promise<MovieVideoProps[]> => {
+  const data = await axios
+    .get(`/movie/${id}/videos`, {
+      params: paramsRequest,
+    })
+    .then(result => result.data.results);
   return data;
 };
